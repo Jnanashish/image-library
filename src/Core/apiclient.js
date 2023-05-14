@@ -1,6 +1,7 @@
 const url = "https://api.flickr.com/services/rest";
-const apiKey = "a6646865e3024740c83fe03d80322fc7";
+const apiKey = process.env.REACT_APP_API_KEY;
 
+// get list of images based on page no
 export const getImages = async (pageNo) => {
     const params = new URLSearchParams({
         method: "flickr.photos.getRecent",
@@ -15,6 +16,7 @@ export const getImages = async (pageNo) => {
     return apiResponse;
 };
 
+// get searched image based on searched term and page no
 export const getSearchedImage = async (searchedTerm, pageNo) => {
     const params = new URLSearchParams({
         method: "flickr.photos.search",

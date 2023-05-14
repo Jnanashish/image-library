@@ -13,13 +13,14 @@ function Dashboard() {
     const [showLoader, setShowLoader] = useState(false);
     const [searchQueries, setSearchQueries] = useState([]);
     const [pageNo, setPageNo] = useState(1);
+    const [showSuggesstions, setShowSuggesstions] = useState(false);
 
     // onintial load call the image list api
     useEffect(() => {
         getImageList();
     }, []);
 
-    // implemented debouce to make api call on searched term
+    // implemented debouce to make api call on searched term on interval
     const delayedSearch = _.debounce(() => {
         loadSearchedImage();
     }, 800);
@@ -32,7 +33,7 @@ function Dashboard() {
         return delayedSearch.cancel;
     }, [searchTerm]);
 
-    // handle infinite scroll
+    // on scroll load new data depending on scrollbar height
     window.onscroll = () => {
         if (
             !showLoader &&
@@ -45,16 +46,27 @@ function Dashboard() {
         }
     };
 
+    // store and retrive the search history from local storage
+    useEffect(() => {
+        const savedQueries = JSON.parse(localStorage.getItem("searchQueries")) || [];
+        setSearchQueries(savedQueries);
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("searchQueries", JSON.stringify(searchQueries));
+    }, [searchQueries]);
+
     const handleQuerySelect = (query) => {
+        setShowSuggesstions(false);
         setSearchTerm(query);
     };
 
     // make api call to load image with searched query
     const loadSearchedImage = (pageNo) => {
-        if (!searchTerm.trim()) {
-            return;
+        setShowSuggesstions(false);
+        if (!searchQueries.includes(searchTerm)) {
+            setSearchQueries([...searchQueries, searchTerm]);
         }
-        setSearchQueries([...searchQueries, searchTerm.trim()]);
         setShowLoader(true);
         setNotFound(false);
         getSearchedImage(searchTerm, pageNo)
@@ -83,6 +95,7 @@ function Dashboard() {
             .catch((error) => setApiError(true));
     };
 
+    // when cross icon is clicked on input field
     const clearSearchKeyword = () => {
         setSearchTerm("");
         setImageData([]);
@@ -90,23 +103,33 @@ function Dashboard() {
         getImageList(1);
     };
 
+    // clear search suggestion from localstorage
+    const clearSuggesstions = () => {
+        setShowSuggesstions(false);
+        setSearchQueries([]);
+        localStorage.removeItem("searchQueries");
+    };
+
     return (
         <div>
             {/* header with search container  */}
             <div className={styles.seach_container}>
                 <p>Search Photos</p>
-                <div className={styles.input_con}>
+                <div className={styles.input_container}>
                     <input
+                        onFocus={() => setShowSuggesstions(true)}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className={styles.input_container}
+                        className={styles.input_field}
                         placeholder="Enter any keyword"
                     />
                     <p onClick={() => clearSearchKeyword()} className={styles.cancelButton}>
                         {searchTerm.length > 1 ? "x" : ""}
                     </p>
                 </div>
-                {searchQueries.length > 0 && false && (
+
+                {/* show search history  */}
+                {searchQueries.length > 0 && showSuggesstions && (
                     <div className={styles.search_suggestions}>
                         {searchQueries.map((query, index) => (
                             <p
@@ -116,6 +139,11 @@ function Dashboard() {
                                 {query}
                             </p>
                         ))}
+                        <button
+                            onClick={() => clearSuggesstions()}
+                            className={styles.clear_suggesstion_button}>
+                            Clear
+                        </button>
                     </div>
                 )}
             </div>

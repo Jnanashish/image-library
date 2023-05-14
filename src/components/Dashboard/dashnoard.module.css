@@ -2,7 +2,7 @@
     background-color: #121212;
     padding: 20px 0px;
     margin-bottom: 40px;
-    max-height: 100px;
+    height: 100px;
 }
 
 .seach_container > p {
@@ -12,12 +12,12 @@
     margin: 0px 0px 20px;
 }
 
-.input_con {
+.input_container {
     width: 400px;
     display: flex;
     margin: 0px auto;
 }
-.input_container {
+.input_field {
     width: 360px;
     outline: none;
     border: none;
@@ -26,17 +26,17 @@
 }
 .cancelButton {
     width: 40px;
-    color: red;
     font-size: 16px;
     font-weight: 500;
     margin: 0px;
     background-color: #fff;
     border-radius: 0px 6px 6px 0px;
+    color: #121212;
+    cursor: pointer;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #121212;
-    cursor: pointer;
 }
 .error_container {
     display: flex;
@@ -47,18 +47,26 @@
 
 .search_suggestions {
     background-color: #ffffff;
-    width: 422px;
-    margin: 0px auto;
-    margin-top: 10px;
+    width: 400px;
+    margin: 10px auto;
     border: 1px solid #121212;
     border-radius: 6px;
     text-align: left;
-    padding: 0px 10px;
-    top: 20%;
-    left: 20px;
+    padding: 0px 10px 10px;
+    max-height: 200px;
+    overflow-y: scroll;
+
+    position: relative;
 }
 .search_suggestions_text {
     font-size: 12px;
     color: #121212;
-    background-color: #fefefe;
+    cursor: pointer;
+}
+.clear_suggesstion_button {
+    background-color: red;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
 }

@@ -4,13 +4,14 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    row-gap: 20px;
-    z-index: 0;
+    justify-content: space-evenly;
+    row-gap: 10px;
 }
+
 .img_container > div {
     flex: 0 1 33%;
 }
+
 .image {
     border: 0.5px solid #bebebe;
     padding: 3px;
@@ -29,12 +30,8 @@
     float: right;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
     .img_container {
         width: 100%;
     }
-}
-.modal {
-    width: 500px;
-    height: 300px;
 }

@@ -13,6 +13,8 @@ const customStyles = {
         marginRight: "-50%",
         transform: "translate(-50%, -50%)",
         padding: "10px",
+        minHeight: "200px",
+        minWidth: "300px",
     },
 };
 
@@ -20,7 +22,7 @@ function Gallery({ data }) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedPhoto, setSelectedPhoto] = useState(null);
 
-    // opne modal when click on a image
+    // opne modal when clicked on a image
     const handleImageClick = (photo) => {
         setSelectedPhoto(photo);
         setModalIsOpen(true);
@@ -32,9 +34,6 @@ function Gallery({ data }) {
         setModalIsOpen(false);
     };
 
-    const handleImageLoad = () => {
-        console.log("IMAGE LOADED");
-    };
     return (
         <div>
             {/* opne modal to show the enlarged image   */}
@@ -55,7 +54,6 @@ function Gallery({ data }) {
                         return (
                             <div key={photo.id}>
                                 <img
-                                    onLoad={handleImageLoad}
                                     onClick={() => handleImageClick(photo)}
                                     className={styles.image}
                                     src={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_n.jpg`}
