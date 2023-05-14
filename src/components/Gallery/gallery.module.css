@@ -1,0 +1,40 @@
+.img_container {
+    width: 90%;
+    margin: 0px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    row-gap: 20px;
+    z-index: 0;
+}
+.img_container > div {
+    flex: 0 1 33%;
+}
+.image {
+    border: 0.5px solid #bebebe;
+    padding: 3px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.close_button {
+    background-color: #3b3b3b;
+    padding: 1px 6px 3px;
+    font-size: 12px;
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    margin: 0px auto 10px;
+    float: right;
+}
+
+@media screen and (max-width: 768px) {
+    .img_container {
+        width: 100%;
+    }
+}
+.modal {
+    width: 500px;
+    height: 300px;
+}
