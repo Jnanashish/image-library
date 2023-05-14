@@ -130,7 +130,7 @@ function Dashboard() {
 
                 {/* show search history  */}
                 {searchQueries.length > 0 && showSuggesstions && (
-                    <div className={styles.search_suggestions}>
+                    <div id="search_suggestions" className={styles.search_suggestions}>
                         {searchQueries.map((query, index) => (
                             <p
                                 className={styles.search_suggestions_text}
@@ -147,19 +147,20 @@ function Dashboard() {
                     </div>
                 )}
             </div>
+            <div onClick={() => setShowSuggesstions(false)}>
+                {imageData.length > 0 && <Gallery data={imageData} />}
 
-            {imageData.length > 0 && <Gallery data={imageData} />}
+                {/* error block to show error or not found message  */}
+                {(apiError || notFound) && (
+                    <div className={styles.error_container}>
+                        {apiError ? "Cannot load data 😔" : "Please try differnet query"}
+                    </div>
+                )}
 
-            {/* error block to show error or not found message  */}
-            {(apiError || notFound) && (
-                <div className={styles.error_container}>
-                    {apiError ? "Cannot load data 😔" : "Please try differnet query"}
-                </div>
-            )}
-
-            {(showLoader || imageData.length === 0) && (
-                <div className={styles.error_container}>Loading ...</div>
-            )}
+                {(showLoader || imageData.length === 0) && (
+                    <div className={styles.error_container}>Loading ...</div>
+                )}
+            </div>
         </div>
     );
 }
