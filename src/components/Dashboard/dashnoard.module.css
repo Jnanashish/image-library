@@ -12,14 +12,32 @@
     margin: 0px 0px 20px;
 }
 
-.input_container {
+.input_con {
     width: 400px;
+    display: flex;
+    margin: 0px auto;
+}
+.input_container {
+    width: 360px;
     outline: none;
     border: none;
     padding: 10px 32px 10px 10px;
-    border-radius: 6px;
+    border-radius: 6px 0px 0px 6px;
 }
-
+.cancelButton {
+    width: 40px;
+    color: red;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0px;
+    background-color: #fff;
+    border-radius: 0px 6px 6px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #121212;
+    cursor: pointer;
+}
 .error_container {
     display: flex;
     align-items: center;
